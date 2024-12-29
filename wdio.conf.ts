@@ -56,7 +56,10 @@ export const config: WebdriverIO.Config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions':{
+            args: ['start-maximized'],
+        }
     }],
 
     //
@@ -142,7 +145,7 @@ export const config: WebdriverIO.Config = {
         // <boolean> invoke formatters without executing steps
         dryRun: false,
         // <boolean> abort the run on first failure
-        failFast: false,
+        failFast: true,
         // <string[]> Only execute the scenarios with name matching the expression (repeatable).
         name: [],
         // <boolean> hide step definition snippets for pending steps

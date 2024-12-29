@@ -19,8 +19,14 @@ Given('I login with valid credentials', async () => {
 });
 
 Given('I should be redirected to Swag Lab Dashboard showing {string}', async (message) => {
-    await expect(DashboardPage.productTitle).toBeExisting();
-    await expect(await DashboardPage.productTitle.getText()).toContain(message);
+    try {
+        await expect(DashboardPage.productTitle).toBeDisplayed(); 
+        await expect(await DashboardPage.productTitle.getText()).toContain(message);
+    } catch (error: any) {
+        console.log(`Issue in Login: ${error.message}`)
+        console.log(`Error Message: ${await LoginPage.errorMessage.getText()} `)
+        throw(error)
+    }
 });
 
 When("I add items to the cart", async () => {
@@ -33,7 +39,7 @@ When("Click on cart button", async () => {
 })
 
 Then('I am in {string} Page', async (message) => {
-    await expect(checkoutPage.checkOutTitle).toBeExisting();
+    await expect(checkoutPage.checkOutTitle).toBeDisplayed();
     await expect(await checkoutPage.checkOutTitle.getText()).toContain(message)
 })
 Then("I fill up the required personal details in the form and submit", async () => {
@@ -41,16 +47,21 @@ Then("I fill up the required personal details in the form and submit", async () 
 })
 
 Then('I am in {string} page and Click on finish button', async (message) => {
-    await expect(checkoutPage.checkOutOverviewTitle).toBeExisting();
-    await expect(await checkoutPage.checkOutOverviewTitle.getText()).toContain(message);
-    await CheckOutPage.finishButton.click();
+    try {
+        await expect(checkoutPage.checkOutOverviewTitle).toBeDisplayed();
+        await expect(await checkoutPage.checkOutOverviewTitle.getText()).toContain(message);
+        await CheckOutPage.finishButton.click();
+    } catch (error: any) {
+        console.log(`Issue in Checkout Page: ${error.message}`)
+        console.log(`Error Message: ${await CheckOutPage.errorMessage.getText()} `)
+        throw(error) 
+    }
+    
 })
 
 Then("I click on Menu Page and click on logout button", async () => {
     await MenuPage.menuButton.click();
     await MenuPage.logOutButton.click()
-  
-    await browser.pause(3000)
 })
 
 

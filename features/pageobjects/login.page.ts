@@ -2,23 +2,19 @@ import { $ } from '@wdio/globals'
 import Page from './page';
 
 /**
- * sub page containing specific selectors and methods for a specific page
+ *  page containing specific selectors and methods for a Login page
  */
 class LoginPage extends Page {
     /**
      * define selectors using getter methods
      */
-    public get inputUsername () {
-        return $('#user-name');
-    }
+    get inputUsername(): ChainablePromiseElement { return $('#user-name'); }
 
-    public get inputPassword () {
-        return $('#password');
-    }
+    get inputPassword(): ChainablePromiseElement { return $('#password'); }
 
-    public get btnSubmit () {
-        return $('#login-button');
-    }
+    get btnSubmit(): ChainablePromiseElement { return $('#login-button'); }
+
+    get errorMessage():ChainablePromiseElement { return $("//h3[@data-test='error']")}
 
     /**
      * a method to encapsule automation code to interact with the page
