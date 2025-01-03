@@ -37,6 +37,7 @@ class CheckOutPage extends Page {
             await this.zipTextBox.clearValue();
             await this.zipTextBox.setValue(zip);
 
+            await browser.takeScreenshot();
             await this.continueButton.click();
     }
 }
